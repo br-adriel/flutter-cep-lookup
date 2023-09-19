@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cep_lookup/models/cep.dart';
 import 'package:flutter_cep_lookup/service/viacep.dart';
+import 'package:flutter_cep_lookup/utils/formatters/cep.dart';
 
 class PesquisarCEPTab extends StatefulWidget {
   const PesquisarCEPTab({super.key});
@@ -61,17 +62,22 @@ class _PesquisarCEPTabState extends State<PesquisarCEPTab> {
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
           child: TextField(
             textInputAction: TextInputAction.search,
+            inputFormatters: [CEPInputFormatter()],
             decoration:
                 InputDecoration(labelText: "CEP", errorText: _inputError),
             keyboardType: TextInputType.number,
-            onSubmitted: (value) => _getCEP(value),
+            onSubmitted: (value) {
+              String v = value.replaceAll("-", "");
+              _getCEP(v);
+            },
             onChanged: (value) {
+              String v = value.replaceAll("-", "");
               if (_cepInfo.cep != "") {
                 _cepInfo = CEPModel();
                 setState(() {});
               }
-              if (value.length >= 8) {
-                _validarCampo(value);
+              if (v.length >= 8) {
+                _validarCampo(v);
               }
             },
           ),
