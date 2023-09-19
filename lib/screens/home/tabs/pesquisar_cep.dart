@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cep_lookup/models/cep.dart';
 import 'package:flutter_cep_lookup/service/viacep.dart';
 import 'package:flutter_cep_lookup/utils/formatters/cep.dart';
+import 'package:flutter_cep_lookup/widgets/cep_info.dart';
 
 class PesquisarCEPTab extends StatefulWidget {
   const PesquisarCEPTab({super.key});
@@ -43,43 +44,48 @@ class _PesquisarCEPTabState extends State<PesquisarCEPTab> {
           child: Center(
             child: _loading
                 ? const CircularProgressIndicator()
-                : _cepInfo.cep.isEmpty
-                    ? const Text("Pesquise um CEP para saber mais informações")
-                    : ListView(
-                        padding: const EdgeInsets.all(16),
-                        children: [
-                          Text("Logradouro: ${_cepInfo.logradouro}"),
-                          Text("Complemento: ${_cepInfo.complemento}"),
-                          Text("Bairro: ${_cepInfo.bairro}"),
-                          Text("Cidade: ${_cepInfo.localidade}"),
-                          Text("Estado: ${_cepInfo.uf}"),
-                          Text("DDD: ${_cepInfo.ddd}"),
-                        ],
-                      ),
+                : CEPInfo(_cepInfo),
           ),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-          child: TextField(
-            textInputAction: TextInputAction.search,
-            inputFormatters: [CEPInputFormatter()],
-            decoration:
-                InputDecoration(labelText: "CEP", errorText: _inputError),
-            keyboardType: TextInputType.number,
-            onSubmitted: (value) {
-              String v = value.replaceAll("-", "");
-              _getCEP(v);
-            },
-            onChanged: (value) {
-              String v = value.replaceAll("-", "");
-              if (_cepInfo.cep != "") {
-                _cepInfo = CEPModel();
-                setState(() {});
-              }
-              if (v.length >= 8) {
-                _validarCampo(v);
-              }
-            },
+          child: Column(
+            children: [
+              TextField(
+                textInputAction: TextInputAction.search,
+                inputFormatters: [CEPInputFormatter()],
+                decoration:
+                    InputDecoration(labelText: "CEP", errorText: _inputError),
+                keyboardType: TextInputType.number,
+                onSubmitted: (value) {
+                  String v = value.replaceAll("-", "");
+                  _getCEP(v);
+                },
+                onChanged: (value) {
+                  String v = value.replaceAll("-", "");
+                  if (_cepInfo.cep != "") {
+                    _cepInfo = CEPModel();
+                    setState(() {});
+                  }
+                  if (v.length >= 8) {
+                    _validarCampo(v);
+                  }
+                },
+              ),
+              if (!_cepInfo.erro && _cepInfo.cep.isNotEmpty)
+                Column(
+                  children: [
+                    const SizedBox(height: 4),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: const Text("Salvar"),
+                      ),
+                    ),
+                  ],
+                ),
+            ],
           ),
         ),
       ],
