@@ -9,6 +9,7 @@ class CEPModel {
   String gia = "";
   String ddd = "";
   String siafi = "";
+  bool erro = false;
 
   CEPModel(
       {this.cep = "",
@@ -20,9 +21,14 @@ class CEPModel {
       this.ibge = "",
       this.gia = "",
       this.ddd = "",
-      this.siafi = ""});
+      this.siafi = "",
+      this.erro = false});
 
   CEPModel.fromJson(Map<String, dynamic> json) {
+    if (json['erro'] != null) {
+      erro = true;
+      return;
+    }
     cep = json['cep'];
     logradouro = json['logradouro'];
     complemento = json['complemento'];
