@@ -1,4 +1,26 @@
-class CEPBack4App {
+class CEPsBack4AppModel {
+  List<CEPBack4AppModel> ceps = [];
+
+  CEPsBack4AppModel(this.ceps);
+
+  CEPsBack4AppModel.fromJson(Map<String, dynamic> json) {
+    if (json['results'] != null) {
+      ceps = <CEPBack4AppModel>[];
+      json['results'].forEach((cep) {
+        ceps.add(CEPBack4AppModel.fromJson(cep));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['results'] = ceps.map((cep) => cep.toJson()).toList();
+    return data;
+  }
+}
+
+class CEPBack4AppModel {
+  String objectId = "";
   String cep = "";
   String logradouro = "";
   String complemento = "";
@@ -7,8 +29,9 @@ class CEPBack4App {
   String uf = "";
   String ddd = "";
 
-  CEPBack4App(
-      {this.cep = "",
+  CEPBack4AppModel(
+      {this.objectId = "",
+      this.cep = "",
       this.logradouro = "",
       this.complemento = "",
       this.bairro = "",
@@ -16,7 +39,8 @@ class CEPBack4App {
       this.uf = "",
       this.ddd = ""});
 
-  CEPBack4App.fromJson(Map<String, dynamic> json) {
+  CEPBack4AppModel.fromJson(Map<String, dynamic> json) {
+    objectId = json['objectId'];
     cep = json['cep'];
     logradouro = json['logradouro'];
     complemento = json['complemento'];
@@ -28,6 +52,7 @@ class CEPBack4App {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['objectId'] = objectId;
     data['cep'] = cep;
     data['logradouro'] = logradouro;
     data['complemento'] = complemento;
