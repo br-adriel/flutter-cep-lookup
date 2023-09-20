@@ -39,13 +39,6 @@ class _CEPsSalvosTabState extends State<CEPsSalvosTab> {
     _loadData();
   }
 
-  _confirmDismiss() {
-    return showDialog(
-      context: context,
-      builder: (context) => const CEPRemocaoDialog(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     if (_loading) return const Center(child: CircularProgressIndicator());
@@ -68,7 +61,12 @@ class _CEPsSalvosTabState extends State<CEPsSalvosTab> {
           direction: DismissDirection.endToStart,
           dismissThresholds: const {DismissDirection.endToStart: 0.2},
           onDismissed: (direction) => _removerCep(_ceps[index].objectId),
-          confirmDismiss: (direction) => _confirmDismiss(),
+          confirmDismiss: (direction) {
+            return showDialog(
+              context: context,
+              builder: (context) => const CEPRemocaoDialog(),
+            );
+          },
           background: const ExclusaoDismissBg(),
           key: Key(_ceps[index].objectId),
           child: InkWell(
