@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cep_lookup/screens/home/tabs/ceps_salvos.dart';
 import 'package:flutter_cep_lookup/screens/home/tabs/pesquisar_cep.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -29,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: const TabBarView(children: [
           PesquisarCEPTab(),
-          Text("Tela 2"),
+          CEPsSalvosTab(),
         ]),
       ),
     );
