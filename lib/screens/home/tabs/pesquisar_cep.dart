@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cep_lookup/models/cep.dart';
+import 'package:flutter_cep_lookup/models/cep_back4app.dart';
+import 'package:flutter_cep_lookup/repositories/cep_back4app.dart';
 import 'package:flutter_cep_lookup/service/viacep.dart';
 import 'package:flutter_cep_lookup/utils/formatters/cep.dart';
 import 'package:flutter_cep_lookup/widgets/cep_info.dart';
@@ -16,6 +18,7 @@ class _PesquisarCEPTabState extends State<PesquisarCEPTab> {
   CEPModel _cepInfo = CEPModel();
   final ViaCEPService _viacep = ViaCEPService();
   String? _inputError;
+  CEPBack4AppRepository _repository = CEPBack4AppRepository();
 
   _validarCampo(String value) {
     _inputError = value.length == 8 ? null : "O input deve ter 8 digitos";
@@ -34,6 +37,16 @@ class _PesquisarCEPTabState extends State<PesquisarCEPTab> {
       _loading = false;
       setState(() {});
     }
+  }
+
+  Future<void> _salvarCEP() async {
+    _loading = true;
+    setState(() {});
+
+    await _repository.adicionar(CEPBack4AppModel.fromCEPModel(_cepInfo));
+
+    _loading = false;
+    setState(() {});
   }
 
   @override
@@ -79,7 +92,7 @@ class _PesquisarCEPTabState extends State<PesquisarCEPTab> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => _salvarCEP(),
                         child: const Text("Salvar"),
                       ),
                     ),
