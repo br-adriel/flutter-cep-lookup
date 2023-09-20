@@ -15,11 +15,12 @@ class PesquisarCEPTab extends StatefulWidget {
 }
 
 class _PesquisarCEPTabState extends State<PesquisarCEPTab> {
+  final ViaCEPService _viacep = ViaCEPService();
+  final CEPBack4AppRepository _repository = CEPBack4AppRepository();
+
   bool _loading = false;
   CEPModel _cepInfo = CEPModel();
-  final ViaCEPService _viacep = ViaCEPService();
   String? _inputError;
-  CEPBack4AppRepository _repository = CEPBack4AppRepository();
 
   _validarCampo(String value) {
     _inputError = value.length == 8 ? null : "O input deve ter 8 digitos";
