@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cep_lookup/models/cep_back4app.dart';
 import 'package:flutter_cep_lookup/repositories/cep_back4app.dart';
+import 'package:flutter_cep_lookup/widgets/cep_list_tile.dart';
+import 'package:flutter_cep_lookup/widgets/cep_remocao_dialog.dart';
+import 'package:flutter_cep_lookup/widgets/exclusao_dismiss_bg.dart';
 
 class CEPsSalvosTab extends StatefulWidget {
   const CEPsSalvosTab({super.key});
@@ -30,6 +33,18 @@ class _CEPsSalvosTabState extends State<CEPsSalvosTab> {
     _loadData();
   }
 
+  _removerCep(String id) async {
+    await _repository.remover(id);
+    _loadData();
+  }
+
+  _confirmDismiss() {
+    return showDialog(
+      context: context,
+      builder: (context) => const CEPRemocaoDialog(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_loading) return const Center(child: CircularProgressIndicator());
@@ -48,18 +63,16 @@ class _CEPsSalvosTabState extends State<CEPsSalvosTab> {
     return ListView.builder(
       itemCount: _ceps.length,
       itemBuilder: (context, index) {
-        return InkWell(
-          onTap: () {},
-          child: ListTile(
-            title: Text(
-                "${_ceps[index].localidade}${_ceps[index].uf.isNotEmpty ? '/${_ceps[index].uf}' : ''}"),
-            subtitle: Text(_ceps[index].cep),
-            shape: const Border(
-              bottom: BorderSide(
-                color: Colors.black12,
-                width: 0,
-              ),
-            ),
+        return Dismissible(
+          direction: DismissDirection.endToStart,
+          dismissThresholds: const {DismissDirection.endToStart: 0.2},
+          onDismissed: (direction) => _removerCep(_ceps[index].objectId),
+          confirmDismiss: (direction) => _confirmDismiss(),
+          background: const ExclusaoDismissBg(),
+          key: Key(_ceps[index].objectId),
+          child: InkWell(
+            onTap: () {},
+            child: CEPListTile(_ceps[index]),
           ),
         );
       },
