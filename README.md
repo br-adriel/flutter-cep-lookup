@@ -8,6 +8,27 @@ aprendizado de Flutter oferecida pelo Santander através da plataforma [DIO](htt
 
 ![Ícone e telas do app](./docs/img/capa.jpg)
 
+## Funcionalidades
+
+### Pesquisa de CEP
+
+- O app permite a busca de informações a respeito de um CEP, para isso ele utiliza a API [ViaCEP](https://viacep.com.br/)
+- Caso alguma das informações não esteja disponível para aquele CEP, um traço (`-`) é exibido para demonstrar a ausência da informação
+- As informações exibidas são as seguintes:
+   - Endereço
+   - Bairro
+   - Cidade
+   - Estado (em formato de sigla)
+   - DDD
+
+### Salvamento de CEPs
+
+- O app permite que você salve seus CEPs favoritos para consulta posterior, para isso ele usa o backend de uma aplicação oferecida pelo [Back4App](https://www.back4app.com/)
+- Os CEPs salvos são movidos para a guia "CEPs Salvos", e são exibidos em formato de lista
+- Na visualização de lista é exibido a cidade e estado aos quais aquele CEP se refere, bem como o próprio CEP
+- Clicando em um item da lista de CEPs salvos uma nova tela é aberta na qual são exibidas todas as informações referentes aquele item
+- Para remover um CEP salvo basta deslizar o item da direita para a esquerda e confirmar a exclusão
+
 ## Executando o projeto
 
 Para executar o projeto você precisa ter o [Flutter](https://flutter.dev/)
