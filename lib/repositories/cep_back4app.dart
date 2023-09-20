@@ -21,10 +21,10 @@ class CEPBack4AppRepository {
   }
 
   Future<void> adicionar(CEPBack4AppModel cep) async {
-    var res = await _dio.get("/classes/CEP?where={\"cep\":${cep.cep}}");
+    var res = await _dio.get("/classes/CEP?where={\"cep\":\"${cep.cep}\"}");
     var fetchedCeps = CEPsBack4AppModel.fromJson(res.data);
     if (fetchedCeps.ceps.isEmpty) {
-      await _dio.post("/classes/CEP", data: cep.toJson());
+      await _dio.post("/classes/CEP", data: cep.toJsonData());
     }
   }
 
