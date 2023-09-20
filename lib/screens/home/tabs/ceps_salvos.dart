@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cep_lookup/models/cep_back4app.dart';
 import 'package:flutter_cep_lookup/repositories/cep_back4app.dart';
+import 'package:flutter_cep_lookup/screens/cep_details.dart';
 import 'package:flutter_cep_lookup/widgets/cep_list_tile.dart';
 import 'package:flutter_cep_lookup/widgets/cep_remocao_dialog.dart';
 import 'package:flutter_cep_lookup/widgets/exclusao_dismiss_bg.dart';
@@ -71,7 +72,12 @@ class _CEPsSalvosTabState extends State<CEPsSalvosTab> {
           background: const ExclusaoDismissBg(),
           key: Key(_ceps[index].objectId),
           child: InkWell(
-            onTap: () {},
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CEPDetailsScreen(_ceps[index]),
+              ),
+            ),
             child: CEPListTile(_ceps[index]),
           ),
         );
