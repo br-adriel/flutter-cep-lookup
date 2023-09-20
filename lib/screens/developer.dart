@@ -35,12 +35,12 @@ class DeveloperScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SocialButtonLink(
-                    "https://www.svgrepo.com/show/512317/github-142.svg",
+                    "assets/icon/social/github.svg",
                     "https://github.com/br-adriel",
                     title: "Github",
                   ),
                   SocialButtonLink(
-                    "https://www.svgrepo.com/show/473701/linkedin.svg",
+                    "assets/icon/social/linkedin.svg",
                     "https://linkedin.com/in/adriel-fsantos",
                     title: "LinkedIn",
                   )

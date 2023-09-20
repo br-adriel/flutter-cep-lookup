@@ -19,7 +19,7 @@ class SocialButtonLink extends StatelessWidget {
           throw Exception('Could not launch $url');
         }
       },
-      icon: SvgPicture.network(
+      icon: SvgPicture.asset(
         _imagem,
         width: 32,
         height: 32,
