@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cep_lookup/screens/developer.dart';
 import 'package:flutter_cep_lookup/screens/home/tabs/ceps_salvos.dart';
 import 'package:flutter_cep_lookup/screens/home/tabs/pesquisar_cep.dart';
 
@@ -16,9 +17,15 @@ class _HomeScreenState extends State<HomeScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            "Localiza CEP",
-            style: TextStyle(fontWeight: FontWeight.bold),
+          title: InkWell(
+            onLongPress: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const DeveloperScreen()),
+            ),
+            child: const Text(
+              "Localiza CEP",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
           centerTitle: true,
           bottom: const TabBar(tabs: [
