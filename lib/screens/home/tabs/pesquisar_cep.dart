@@ -5,6 +5,7 @@ import 'package:flutter_cep_lookup/repositories/cep_back4app.dart';
 import 'package:flutter_cep_lookup/service/viacep.dart';
 import 'package:flutter_cep_lookup/utils/formatters/cep.dart';
 import 'package:flutter_cep_lookup/widgets/cep_info.dart';
+import 'package:flutter_cep_lookup/widgets/cep_salvo_dialog.dart';
 
 class PesquisarCEPTab extends StatefulWidget {
   const PesquisarCEPTab({super.key});
@@ -92,7 +93,16 @@ class _PesquisarCEPTabState extends State<PesquisarCEPTab> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () => _salvarCEP(),
+                        onPressed: () {
+                          _salvarCEP().then((value) {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return CEPSalvoDialog(_cepInfo.cep);
+                              },
+                            );
+                          });
+                        },
                         child: const Text("Salvar"),
                       ),
                     ),
