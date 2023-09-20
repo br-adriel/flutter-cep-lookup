@@ -1,3 +1,5 @@
+import 'package:flutter_cep_lookup/models/cep.dart';
+
 class CEPsBack4AppModel {
   List<CEPBack4AppModel> ceps = [];
 
@@ -57,6 +59,16 @@ class CEPBack4AppModel {
     ddd = json['ddd'];
   }
 
+  CEPBack4AppModel.fromCEPModel(CEPModel cep) {
+    this.cep = cep.cep;
+    logradouro = cep.logradouro;
+    complemento = cep.complemento;
+    bairro = cep.bairro;
+    localidade = cep.localidade;
+    uf = cep.uf;
+    ddd = cep.ddd;
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['objectId'] = objectId;
@@ -69,6 +81,18 @@ class CEPBack4AppModel {
     data['localidade'] = localidade;
     data['uf'] = uf;
     data['ddd'] = ddd;
+    return data;
+  }
+
+  Map<String, dynamic> toJsonData() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['cep'] = cep;
+    data['logradouro'] = logradouro.isEmpty ? '-' : logradouro;
+    data['complemento'] = complemento.isEmpty ? '-' : complemento;
+    data['bairro'] = bairro.isEmpty ? '-' : bairro;
+    data['localidade'] = localidade.isEmpty ? '-' : localidade;
+    data['uf'] = uf.isEmpty ? '-' : uf;
+    data['ddd'] = ddd.isEmpty ? '-' : ddd;
     return data;
   }
 }
